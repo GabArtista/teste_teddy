@@ -2,7 +2,7 @@
 
 from typing import List
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 
 from resume_ai.application.dto.resume_request import ProcessResumesRequest
 from resume_ai.application.use_cases.process_resumes import ProcessResumesUseCase
@@ -20,9 +20,9 @@ router = APIRouter(prefix="/v1/resumes", tags=["resumes"])
     summary="Process resumes and optionally answer a query",
 )
 async def process_resumes(
-    request_id: str,
-    user_id: str,
-    query: str | None = None,
+    request_id: str = Form(...),
+    user_id: str = Form(...),
+    query: str | None = Form(default=None),
     files: List[UploadFile] = File(...),
     use_case: ProcessResumesUseCase = Depends(provide_use_case),
 ) -> ProcessResumesResponseSchema:
@@ -69,4 +69,3 @@ async def process_resumes(
             else None
         ),
     )
-
