@@ -58,7 +58,9 @@ def test_client():
 
 
 def test_process_resumes_endpoint_returns_payload(test_client: TestClient) -> None:
-    files = {"files": ("resume.pdf", b"dummy", "application/pdf")}
+    files = [
+        ("files", ("resume.pdf", b"dummy", "application/pdf")),
+    ]
     payload = {
         "request_id": "req-1",
         "user_id": "fabio",
