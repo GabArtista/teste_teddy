@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from datetime import datetime
 from typing import List
+from uuid import uuid4
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from ulid import ULID
@@ -115,7 +116,7 @@ class ProcessResumesUseCase:
         chunks: list[ResumeChunk] = []
         for index, chunk_text in enumerate(parts):
             chunk = ResumeChunk(
-                chunk_id=f"{resume_id}:{index}",
+                chunk_id=str(uuid4()),
                 text=chunk_text,
                 metadata={"resume_id": resume_id, "position": str(index)},
             )
