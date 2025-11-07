@@ -8,7 +8,7 @@ python-multipart==0.0.9
 motor==3.7.1
 qdrant-client==1.9.1
 paddleocr==2.7.3
-paddlepaddle==2.6.1
+paddlepaddle==3.2.1
 pymupdf==1.24.10
 pillow==10.4.0
 tenacity==8.4.2
