@@ -54,9 +54,16 @@ class PaddleOCRService:
             for line in ocr_result:
                 if not line:
                     continue
-                _, content = line
-                text = content[0]
-                results.append(text)
+                for entry in line:
+                    if not entry or len(entry) < 2:
+                        continue
+                    content = entry[1]
+                    if isinstance(content, (list, tuple)) and content:
+                        text = content[0]
+                    else:
+                        text = str(content)
+                    if text:
+                        results.append(text)
         combined = "\n".join(results)
         logger.info("extracted_text", filename=file.filename, length=len(combined))
         return combined
@@ -85,4 +92,3 @@ class PaddleOCRService:
         image = Image.open(BytesIO(data))
         rgb_image = image.convert("RGB")
         return np.array(rgb_image)
-
